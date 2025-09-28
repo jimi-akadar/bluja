@@ -1,35 +1,55 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
+import React from "react";
+import { StyleSheet, Text } from "react-native";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+type Props = {};
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const TabLayout = (props: Props) => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+    <Tabs>
+      <TabSlot />
+      <TabList style={{ height: 64, backgroundColor: "#fff" }}>
+        <TabTrigger
+          name="service"
+          href="/(tabs)/service"
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="home" size={24} />
+          <Text style={styles.textTabTrigger}>Anasayfa</Text>
+        </TabTrigger>
+        <TabTrigger
+          name="search"
+          href="/(tabs)/search"
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="home" size={24} />
+          <Text style={styles.textTabTrigger}>Ara</Text>
+        </TabTrigger>
+        <TabTrigger
+          name="history"
+          href="/(tabs)/history"
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="home" size={24} />
+          <Text style={styles.textTabTrigger}>Geçmiş</Text>
+        </TabTrigger>
+        <TabTrigger
+          name="account"
+          href="/(tabs)/account"
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="home" size={24} />
+          <Text style={styles.textTabTrigger}>Hesap</Text>
+        </TabTrigger>
+      </TabList>
     </Tabs>
   );
-}
+};
+
+export default TabLayout;
+
+const styles = StyleSheet.create({
+  tabTrigger: { flex: 1, justifyContent: "center", alignItems: "center" },
+  textTabTrigger: {},
+});
