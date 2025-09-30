@@ -1,5 +1,7 @@
+import { INTER_600 } from "@/assets/fonts/Inter";
 import AddressBar from "@/components/AddressBar";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { Pressable, Text, View } from "react-native";
 
 export default function HomeScreen() {
@@ -14,6 +16,8 @@ export default function HomeScreen() {
         paddingHorizontal: 24,
       }}
     >
+      <StatusBar style="dark" />
+
       <AddressBar />
 
       <View
@@ -50,7 +54,7 @@ export default function HomeScreen() {
               paddingLeft: 8,
             }}
           >
-            <Text>Sellam</Text>
+            <Text style={{ fontFamily: INTER_600 }}>Sellam</Text>
             <View
               style={{
                 alignSelf: "flex-end",

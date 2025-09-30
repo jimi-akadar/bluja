@@ -4,10 +4,13 @@ import React from "react";
 import { Platform, StyleSheet, View } from "react-native";
 
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HeaderWhite = (props: NativeStackHeaderProps) => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: 16 + insets.top }]}>
       <Image source={blujaLogo} style={styles.logo} />
     </View>
   );
@@ -17,15 +20,14 @@ export default HeaderWhite;
 
 const styles = StyleSheet.create({
   container: {
-    height: 56,
+    padding: 16,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    alignItems: "center",
     backgroundColor: "#fff",
     ...Platform.select({
       ios: {
-        shadowColor: "#fff",
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.19,
         shadowRadius: 6,
@@ -36,9 +38,5 @@ const styles = StyleSheet.create({
   logo: {
     width: 54,
     height: 24,
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: [{ translateX: "-50%" }, { translateY: "-50%" }],
   },
 });

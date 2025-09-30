@@ -5,6 +5,8 @@ import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import blujaWhiteLogo from "@/assets/logo/bluja-white.png";
 
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { INTER_600 } from "@/assets/fonts/Inter";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HeaderThemeColor = ({
   navigation,
@@ -12,8 +14,10 @@ const HeaderThemeColor = ({
   route,
   back,
 }: NativeStackHeaderProps) => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: 16 + insets.top }]}>
       <View style={styles.innerContainer}>
         <Image source={blujaWhiteLogo} style={styles.logo} />
 
@@ -22,7 +26,7 @@ const HeaderThemeColor = ({
         </Pressable>
       </View>
 
-      <Text style={styles.title}>Temizlik</Text>
+      <Text style={[styles.title, { top: 16 + insets.top }]}>Temizlik</Text>
     </View>
   );
 };
@@ -31,12 +35,11 @@ export default HeaderThemeColor;
 
 const styles = StyleSheet.create({
   container: {
-    height: 56,
-    paddingHorizontal: 16,
+    padding: 16,
     backgroundColor: "#8E50C1",
     ...Platform.select({
       ios: {
-        shadowColor: "#fff",
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.19,
         shadowRadius: 6,
@@ -48,8 +51,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    // backgroundColor: "red",
-    flex: 1,
     zIndex: 2,
   },
   logo: { width: 54, height: 24 },
@@ -65,10 +66,9 @@ const styles = StyleSheet.create({
   title: {
     position: "absolute",
     textAlign: "center",
-    top: "50%",
     left: 0,
     right: 0,
-    transform: [{ translateY: "-50%" }],
+    fontFamily: INTER_600,
     fontSize: 16,
     lineHeight: 24,
     fontWeight: 600,
