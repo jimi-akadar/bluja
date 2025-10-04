@@ -8,102 +8,108 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { COLOR_PRIMARY } from "@/constants/colors";
 import { Text500 } from "@/primitives";
+import { StatusBar } from "expo-status-bar";
 
 const TabLayout = () => {
   const pathname = usePathname();
 
   return (
-    <Tabs>
-      <TabSlot />
+    <>
+      <StatusBar style="light" backgroundColor="#7C3AED" />
+      <Tabs>
+        <TabSlot />
 
-      <TabList style={styles.tabList}>
-        <TabTrigger
-          name="service"
-          href="/(tabs)/service/service"
-          style={styles.tabTrigger}
-        >
-          <MaterialIcons
-            name="home"
-            size={24}
-            color={pathname === "/service/service" ? COLOR_PRIMARY : "#98A2B3"}
-          />
-          <Text500
-            style={[
-              styles.textTabTrigger,
-              { color: pathname === "/service/service" ? COLOR_PRIMARY : "" },
-            ]}
+        <TabList style={styles.tabList}>
+          <TabTrigger
+            name="service"
+            href="/(tabs)/service/service"
+            style={styles.tabTrigger}
           >
-            Anasayfa
-          </Text500>
-        </TabTrigger>
+            <MaterialIcons
+              name="home"
+              size={24}
+              color={
+                pathname === "/service/service" ? COLOR_PRIMARY : "#98A2B3"
+              }
+            />
+            <Text500
+              style={[
+                styles.textTabTrigger,
+                { color: pathname === "/service/service" ? COLOR_PRIMARY : "" },
+              ]}
+            >
+              Anasayfa
+            </Text500>
+          </TabTrigger>
 
-        <TabTrigger
-          name="search"
-          href="/(tabs)/search"
-          style={styles.tabTrigger}
-        >
-          <Ionicons
+          <TabTrigger
             name="search"
-            size={24}
-            color={pathname === "/search" ? COLOR_PRIMARY : "#98A2B3"}
-          />
-          <Text500
-            style={[
-              styles.textTabTrigger,
-              { color: pathname === "/search" ? COLOR_PRIMARY : "" },
-            ]}
+            href="/(tabs)/search"
+            style={styles.tabTrigger}
           >
-            Ara
-          </Text500>
-        </TabTrigger>
+            <Ionicons
+              name="search"
+              size={24}
+              color={pathname === "/search" ? COLOR_PRIMARY : "#98A2B3"}
+            />
+            <Text500
+              style={[
+                styles.textTabTrigger,
+                { color: pathname === "/search" ? COLOR_PRIMARY : "" },
+              ]}
+            >
+              Ara
+            </Text500>
+          </TabTrigger>
 
-        <Link href="/home" asChild>
-          <Pressable style={styles.fabButton}>
-            <MaterialCommunityIcons name="plus" size={24} color="#fff" />
-          </Pressable>
-        </Link>
+          <Link href="/home" asChild>
+            <Pressable style={styles.fabButton}>
+              <MaterialCommunityIcons name="plus" size={24} color="#fff" />
+            </Pressable>
+          </Link>
 
-        <TabTrigger
-          name="history"
-          href="/(tabs)/history"
-          style={styles.tabTrigger}
-        >
-          <MaterialIcons
+          <TabTrigger
             name="history"
-            size={24}
-            color={pathname === "/history" ? COLOR_PRIMARY : "#98A2B3"}
-          />
-          <Text500
-            style={[
-              styles.textTabTrigger,
-              { color: pathname === "/history" ? COLOR_PRIMARY : "" },
-            ]}
+            href="/(tabs)/history"
+            style={styles.tabTrigger}
           >
-            Geçmiş
-          </Text500>
-        </TabTrigger>
+            <MaterialIcons
+              name="history"
+              size={24}
+              color={pathname === "/history" ? COLOR_PRIMARY : "#98A2B3"}
+            />
+            <Text500
+              style={[
+                styles.textTabTrigger,
+                { color: pathname === "/history" ? COLOR_PRIMARY : "" },
+              ]}
+            >
+              Geçmiş
+            </Text500>
+          </TabTrigger>
 
-        <TabTrigger
-          name="account"
-          href="/(tabs)/account"
-          style={styles.tabTrigger}
-        >
-          <MaterialCommunityIcons
+          <TabTrigger
             name="account"
-            size={24}
-            color={pathname === "/account" ? COLOR_PRIMARY : "#98A2B3"}
-          />
-          <Text500
-            style={[
-              styles.textTabTrigger,
-              { color: pathname === "/account" ? COLOR_PRIMARY : "" },
-            ]}
+            href="/(tabs)/account"
+            style={styles.tabTrigger}
           >
-            Hesap
-          </Text500>
-        </TabTrigger>
-      </TabList>
-    </Tabs>
+            <MaterialCommunityIcons
+              name="account"
+              size={24}
+              color={pathname === "/account" ? COLOR_PRIMARY : "#98A2B3"}
+            />
+            <Text500
+              style={[
+                styles.textTabTrigger,
+                { color: pathname === "/account" ? COLOR_PRIMARY : "" },
+              ]}
+            >
+              Hesap
+            </Text500>
+          </TabTrigger>
+        </TabList>
+      </Tabs>
+    </>
   );
 };
 
