@@ -1,8 +1,8 @@
-import { INTER_600 } from "@/assets/fonts/Inter";
-import AddressBar from "@/components/AddressBar";
+import { Pressable, View } from "react-native";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Pressable, Text, View } from "react-native";
+import AddressBar from "@/components/AddressBar";
+import { Text600 } from "@/primitives";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function HomeScreen() {
         {[1, 2, 3, 4].map((item, i) => (
           <Pressable
             key={item}
-            onPress={() => router.navigate("/(tabs)/service")}
+            onPress={() => router.navigate("/(tabs)/service/service")}
             style={{
               borderWidth: 1,
               borderColor: "#8E50C1",
@@ -54,7 +54,7 @@ export default function HomeScreen() {
               paddingLeft: 8,
             }}
           >
-            <Text style={{ fontFamily: INTER_600 }}>Sellam</Text>
+            <Text600>Sellam</Text600>
             <View
               style={{
                 alignSelf: "flex-end",

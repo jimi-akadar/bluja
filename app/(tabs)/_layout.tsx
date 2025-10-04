@@ -1,14 +1,13 @@
-import { INTER_500 } from "@/assets/fonts/Inter";
-import { COLOR_PRIMARY } from "@/constants/colors";
+import React from "react";
+import { Platform, Pressable, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Link, usePathname } from "expo-router";
+import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Link, usePathname } from "expo-router";
 
-import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
-
-import React from "react";
-import { Platform, Pressable, StyleSheet, Text } from "react-native";
+import { COLOR_PRIMARY } from "@/constants/colors";
+import { Text500 } from "@/primitives";
 
 const TabLayout = () => {
   const pathname = usePathname();
@@ -20,22 +19,22 @@ const TabLayout = () => {
       <TabList style={styles.tabList}>
         <TabTrigger
           name="service"
-          href="/(tabs)/service"
+          href="/(tabs)/service/service"
           style={styles.tabTrigger}
         >
           <MaterialIcons
             name="home"
             size={24}
-            color={pathname === "/service" ? COLOR_PRIMARY : "#98A2B3"}
+            color={pathname === "/service/service" ? COLOR_PRIMARY : "#98A2B3"}
           />
-          <Text
+          <Text500
             style={[
               styles.textTabTrigger,
-              { color: pathname === "/service" ? COLOR_PRIMARY : "" },
+              { color: pathname === "/service/service" ? COLOR_PRIMARY : "" },
             ]}
           >
             Anasayfa
-          </Text>
+          </Text500>
         </TabTrigger>
 
         <TabTrigger
@@ -48,14 +47,14 @@ const TabLayout = () => {
             size={24}
             color={pathname === "/search" ? COLOR_PRIMARY : "#98A2B3"}
           />
-          <Text
+          <Text500
             style={[
               styles.textTabTrigger,
               { color: pathname === "/search" ? COLOR_PRIMARY : "" },
             ]}
           >
             Ara
-          </Text>
+          </Text500>
         </TabTrigger>
 
         <Link href="/home" asChild>
@@ -74,14 +73,14 @@ const TabLayout = () => {
             size={24}
             color={pathname === "/history" ? COLOR_PRIMARY : "#98A2B3"}
           />
-          <Text
+          <Text500
             style={[
               styles.textTabTrigger,
               { color: pathname === "/history" ? COLOR_PRIMARY : "" },
             ]}
           >
             Geçmiş
-          </Text>
+          </Text500>
         </TabTrigger>
 
         <TabTrigger
@@ -94,14 +93,14 @@ const TabLayout = () => {
             size={24}
             color={pathname === "/account" ? COLOR_PRIMARY : "#98A2B3"}
           />
-          <Text
+          <Text500
             style={[
               styles.textTabTrigger,
               { color: pathname === "/account" ? COLOR_PRIMARY : "" },
             ]}
           >
             Hesap
-          </Text>
+          </Text500>
         </TabTrigger>
       </TabList>
     </Tabs>
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexShrink: 0,
   },
-  textTabTrigger: { fontFamily: INTER_500, color: "#98A2B3" },
+  textTabTrigger: { color: "#98A2B3" },
   fabButton: {
     width: 56,
     height: 56,

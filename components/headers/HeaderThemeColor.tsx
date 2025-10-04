@@ -1,12 +1,11 @@
 import { Image } from "expo-image";
 import React from "react";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Text500 } from "@/primitives";
 
 import blujaWhiteLogo from "@/assets/logo/bluja-white.png";
-
-import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import { INTER_600 } from "@/assets/fonts/Inter";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HeaderThemeColor = ({
   navigation,
@@ -26,7 +25,9 @@ const HeaderThemeColor = ({
         </Pressable>
       </View>
 
-      <Text style={[styles.title, { top: 16 + insets.top }]}>Temizlik</Text>
+      <Text500 style={[styles.title, { top: 16 + insets.top }]}>
+        Temizlik
+      </Text500>
     </View>
   );
 };
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     left: 0,
     right: 0,
-    fontFamily: INTER_600,
     fontSize: 16,
     lineHeight: 24,
     fontWeight: 600,
