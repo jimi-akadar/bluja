@@ -1,16 +1,33 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import Card from "@/primitives/cards/Card";
+import * as ImagePicker from "expo-image-picker";
 
 type Props = {};
 
 const RequestPhotos = (props: Props) => {
+  const [image, setImage] = useState<string | null>(null);
+
   const [photos, setPhotos] = useState([]);
 
-  const addPhoto = () => {
-    if (photos.length < 5) {
-      setPhotos([...photos, { id: Date.now() }]);
+  console.log({ photos });
+
+  const addPhoto = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ["images"],
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
+      cameraType: ImagePicker.CameraType.back,
+    });
+
+    console.log("result");
+    console.log(result);
+
+    if (!result.canceled) {
+      setPhotos((prev) => [...prev, { id: Date.now(), ...result.assets[0] }]);
     }
   };
 
@@ -19,37 +36,51 @@ const RequestPhotos = (props: Props) => {
   };
 
   return (
-    <Card>
-      <View style={styles.photoHeader}>
-        <Text style={styles.label}>Add Photos</Text>
-        <Text style={styles.photoCount}>{photos.length}/5</Text>
-      </View>
+    <>
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
 
-      <View style={styles.photoGrid}>
-        {photos.map((photo) => (
-          <View key={photo.id} style={styles.photoItem}>
-            <View style={styles.photoPlaceholder}>
-              <Feather name="camera" size={32} color="#FFFFFF" />
+      <Card>
+        <View style={styles.photoHeader}>
+          <Text style={styles.label}>Add Photos</Text>
+          <Text style={styles.photoCount}>{photos.length}/5</Text>
+        </View>
+
+        <View style={styles.photoGrid}>
+          {photos.map((photo) => (
+            <View key={photo.id} style={styles.photoItem}>
+              <View style={styles.photoPlaceholder}>
+                {/* <Feather name="camera" size={32} color="#FFFFFF" /> */}
+                <Image
+                  resizeMode="cover"
+                  source={{ uri: photo.uri }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </View>
+              <Pressable
+                onPress={() => removePhoto(photo.id)}
+                style={styles.removePhotoButton}
+              >
+                <Feather name="x" size={16} color="#FFFFFF" />
+              </Pressable>
             </View>
-            <Pressable
-              onPress={() => removePhoto(photo.id)}
-              style={styles.removePhotoButton}
-            >
-              <Feather name="x" size={16} color="#FFFFFF" />
-            </Pressable>
-          </View>
-        ))}
+          ))}
 
-        {photos.length < 5 && (
-          <Pressable onPress={addPhoto} style={styles.addPhotoButton}>
-            <Feather name="camera" size={24} color="#9CA3AF" />
-          </Pressable>
-        )}
-      </View>
-      <Text style={styles.helperText}>
-        Photos help providers understand your needs better
-      </Text>
-    </Card>
+          {photos.length < 5 && (
+            <Pressable onPress={addPhoto} style={styles.addPhotoButton}>
+              <Feather name="camera" size={24} color="#9CA3AF" />
+            </Pressable>
+          )}
+        </View>
+        <Text style={styles.helperText}>
+          Photos help providers understand your needs better
+        </Text>
+      </Card>
+    </>
   );
 };
 
@@ -107,6 +138,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   addPhotoButton: {
+    height: "100%",
     width: "30%",
     aspectRatio: 1,
     backgroundColor: "#F9FAFB",

@@ -47,7 +47,13 @@
       ],
       "expo-font",
       "expo-web-browser",
-      "expo-maps"
+      "expo-maps",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
