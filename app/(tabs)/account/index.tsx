@@ -14,7 +14,7 @@ const AccountScreen = () => {
           iconName: "user",
           label: "Personal Information",
           description: "Update your name, email, and phone number",
-          onPress: () => console.log("Personal Information pressed"),
+          onPress: () => router.push("/account/personal-information"),
         },
         {
           iconName: "shield",

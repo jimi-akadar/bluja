@@ -21,15 +21,23 @@ const AccountLayout = () => {
       screenLayout={(props) => (
         <View style={{ flex: 1, backgroundColor: "#fff" }} {...props} />
       )}
+      screenOptions={{ header: (props) => <HeaderWithBackButton {...props} /> }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
+
+      <Stack.Screen
+        name="personal-information"
+        options={{
+          presentation: "modal",
+          title: "Personal Information",
+        }}
+      />
 
       <Stack.Screen
         name="security"
         options={{
           presentation: "modal",
           title: "Security",
-          header: (props) => <HeaderWithBackButton {...props} />,
         }}
       />
     </Stack>
