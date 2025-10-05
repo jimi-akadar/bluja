@@ -20,7 +20,7 @@ const AccountLayout = () => {
         navigation.getParent()?.setOptions({ headerShown: true });
       };
     }
-  }, [pathname]);
+  }, [pathname, navigation]);
 
   return (
     <Stack

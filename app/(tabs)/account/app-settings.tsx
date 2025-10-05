@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  SafeAreaView,
-  Switch,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, Switch } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Screen } from "@/primitives";
 
-const AppSettingsScreen = ({ navigation }) => {
+const AppSettingsScreen = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   const handleLanguagePress = () => {
