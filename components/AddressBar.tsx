@@ -24,7 +24,6 @@ export default AddressBar;
 const styles = StyleSheet.create({
   container: {
     height: 26,
-
     ...Platform.select({
       ios: {
         shadowColor: "#000",
@@ -34,11 +33,11 @@ const styles = StyleSheet.create({
       },
       android: { elevation: 6 },
     }),
-
     backgroundColor: "#fff",
     borderRadius: 1,
     paddingHorizontal: 8,
     justifyContent: "center",
+    zIndex: 1,
   },
   wrapperAddress: { flexDirection: "row" },
   textAddressName: {},
