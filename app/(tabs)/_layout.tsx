@@ -22,7 +22,7 @@ const TabLayout = () => {
         <TabList style={styles.tabList}>
           <TabTrigger
             name="service"
-            href="/(tabs)/service/service"
+            href="/(tabs)/service"
             style={styles.tabTrigger}
           >
             <MaterialIcons

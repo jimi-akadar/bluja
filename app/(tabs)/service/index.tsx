@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import ServiceATF from "./components/ServiceATF";
 import AddressBar from "@/components/AddressBar";
@@ -6,12 +6,13 @@ import RequestCard from "@/components/cards/RequestCard";
 import { Request } from "@/types";
 import StatsCard from "@/components/cards/StatsCard";
 import { Text600 } from "@/primitives";
-import { Link, useRouter } from "expo-router";
+import { Link, useNavigation, useRouter } from "expo-router";
 
 type Props = {};
 
 const ServiceScreen = (props: Props) => {
   const router = useRouter();
+  const navigation = useNavigation();
 
   const serviceData = {
     title: "Ev Temizliği",
@@ -69,6 +70,10 @@ const ServiceScreen = (props: Props) => {
   const handleCreateRequest = () => {
     router.navigate("/request");
   };
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({ title: "Temizlik" });
+  }, [navigation]);
 
   return (
     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>

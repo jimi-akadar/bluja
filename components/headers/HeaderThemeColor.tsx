@@ -6,6 +6,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text500 } from "@/primitives";
 
 import { BlujaLogoWhite } from "@/assets/logo";
+import { usePathname } from "expo-router";
+
+const paths = [
+  // { pathname: "/service", title: "Hizmet" },
+  { pathname: "/search", title: "Ara" },
+  { pathname: "/history", title: "Geçmiş" },
+  { pathname: "/account", title: "Hesap" },
+];
 
 const HeaderThemeColor = ({
   navigation,
@@ -14,6 +22,12 @@ const HeaderThemeColor = ({
   back,
 }: NativeStackHeaderProps) => {
   const insets = useSafeAreaInsets();
+  const pathname = usePathname();
+
+  const title =
+    paths.find((item) => item.pathname === pathname)?.title || options.title;
+
+  // console.log({ title });
 
   return (
     <View style={[styles.container, { paddingTop: 16 + insets.top }]}>
@@ -26,7 +40,7 @@ const HeaderThemeColor = ({
       </View>
 
       <Text500 style={[styles.title, { top: 16 + insets.top }]}>
-        Temizlik
+        {title}
       </Text500>
     </View>
   );

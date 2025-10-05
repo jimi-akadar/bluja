@@ -53,6 +53,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="request/index"
           options={{
+            title: "Talep Oluştur",
             presentation: "modal",
             header: (props) => <HeaderWithBackButton {...props} />,
           }}

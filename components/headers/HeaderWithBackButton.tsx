@@ -19,7 +19,7 @@ const HeaderWithBackButton = (props: NativeStackHeaderProps) => {
         >
           <Feather name="chevron-left" size={24} color="#1F2937" />
         </Pressable>
-        <Text style={styles.headerTitle}>Create Request</Text>
+        <Text style={styles.headerTitle}>{props.options.title}</Text>
         <View style={styles.headerSpacer} />
       </View>
     </>
