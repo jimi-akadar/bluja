@@ -105,13 +105,15 @@ const PersonalInformationScreen = () => {
   return (
     <Screen>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
         <ScrollView
           style={{ flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
           <View style={styles.content}>
             <Text style={styles.sectionTitle}>Personal Information</Text>
@@ -177,14 +179,16 @@ const PersonalInformationScreen = () => {
 
             <View style={styles.formGroup}>
               <Text style={styles.label}>Primary Address</Text>
-              <View style={styles.inputContainer}>
+              <View style={[styles.inputContainer, styles.textareaContainer]}>
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input, styles.textarea]}
                   placeholder="Primary Address"
                   placeholderTextColor="#9CA3AF"
                   value={primaryAddress}
                   onChangeText={setPrimaryAddress}
                   multiline
+                  numberOfLines={4}
+                  textAlignVertical="top"
                 />
               </View>
             </View>
@@ -300,6 +304,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#6B7280",
     paddingVertical: 16,
+  },
+  textareaContainer: {
+    alignItems: "flex-start",
+    minHeight: 100,
+  },
+  textarea: {
+    minHeight: 100,
   },
   footer: {
     paddingHorizontal: 20,

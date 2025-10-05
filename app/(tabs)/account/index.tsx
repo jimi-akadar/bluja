@@ -31,7 +31,7 @@ const AccountScreen = () => {
           iconName: "settings",
           label: "App Settings",
           description: "Customize your app experience",
-          onPress: () => console.log("App Settings pressed"),
+          onPress: () => router.push("/account/app-settings"),
         },
         {
           iconName: "bell",
