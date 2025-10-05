@@ -6,7 +6,7 @@ import RequestCard from "@/components/cards/RequestCard";
 import { Request } from "@/types";
 import StatsCard from "@/components/cards/StatsCard";
 import { Text600 } from "@/primitives";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 type Props = {};
 
@@ -78,9 +78,11 @@ const ServiceScreen = (props: Props) => {
 
       {/* CTA Button */}
       <View style={styles.ctaContainer}>
-        <Pressable style={styles.ctaButton} onPress={handleCreateRequest}>
-          <Text600 style={styles.ctaButtonText}>Talep Oluştur</Text600>
-        </Pressable>
+        <Link asChild href="/request">
+          <Pressable style={styles.ctaButton} onPress={handleCreateRequest}>
+            <Text600 style={styles.ctaButtonText}>Talep Oluştur</Text600>
+          </Pressable>
+        </Link>
       </View>
 
       {/* Active Requests */}

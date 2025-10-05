@@ -1,27 +1,57 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Card from "@/primitives/cards/Card";
+import CategorySelectModal from "./CategorySelectModal";
 
-type Props = {};
+type Category = {
+  id: string;
+  name: string;
+  emoji: string;
+  bgColor: string;
+};
+
+type Props = Record<string, never>;
 
 const RequestCategory = (props: Props) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category>({
+    id: "cleaning",
+    name: "Temizlik",
+    emoji: "🏠",
+    bgColor: "#CCFBF1",
+  });
+
   return (
-    <Card>
-      <View style={styles.serviceRow}>
-        <View style={styles.serviceInfo}>
-          <View style={styles.serviceIcon}>
-            <Text style={styles.serviceEmoji}>🏠</Text>
+    <>
+      <Card>
+        <View style={styles.serviceRow}>
+          <View style={styles.serviceInfo}>
+            <View
+              style={[
+                styles.serviceIcon,
+                { backgroundColor: selectedCategory.bgColor },
+              ]}
+            >
+              <Text style={styles.serviceEmoji}>{selectedCategory.emoji}</Text>
+            </View>
+            <View>
+              <Text style={styles.serviceLabel}>Hizmet</Text>
+              <Text style={styles.serviceName}>{selectedCategory.name}</Text>
+            </View>
           </View>
-          <View>
-            <Text style={styles.serviceLabel}>Service</Text>
-            <Text style={styles.serviceName}>Home Cleaning</Text>
-          </View>
+          <Pressable onPress={() => setModalVisible(true)}>
+            <Text style={styles.changeButton}>Değiştir</Text>
+          </Pressable>
         </View>
-        <Pressable>
-          <Text style={styles.changeButton}>Change</Text>
-        </Pressable>
-      </View>
-    </Card>
+      </Card>
+
+      <CategorySelectModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onSelect={setSelectedCategory}
+        selectedCategoryId={selectedCategory.id}
+      />
+    </>
   );
 };
 

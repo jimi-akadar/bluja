@@ -51,7 +51,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="request"
+          name="request/index"
           options={{
             presentation: "modal",
             header: (props) => <HeaderWithBackButton {...props} />,
