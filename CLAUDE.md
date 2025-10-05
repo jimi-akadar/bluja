@@ -63,6 +63,10 @@ npm run reset-project  # Moves starter code to app-example/ and creates blank ap
 - **Other Components** (`components/`): Feature-specific components
   - `AddressBar` - Location/address selector
 
+### Rules
+
+- Do not user TouchableOpacity component from React Native
+
 ### Styling & Theming
 
 - **Colors** defined in `constants/colors.ts`:

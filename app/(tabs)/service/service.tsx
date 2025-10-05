@@ -1,21 +1,18 @@
 import React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import ServiceATF from "./components/ServiceATF";
 import AddressBar from "@/components/AddressBar";
 import RequestCard from "@/components/cards/RequestCard";
 import { Request } from "@/types";
 import StatsCard from "@/components/cards/StatsCard";
 import { Text600 } from "@/primitives";
+import { useRouter } from "expo-router";
 
 type Props = {};
 
 const ServiceScreen = (props: Props) => {
+  const router = useRouter();
+
   const serviceData = {
     title: "Ev Temizliği",
     subtitle: "Profesyonel temizlikçiler ile eviniz pırıl pırıl.",
@@ -69,7 +66,9 @@ const ServiceScreen = (props: Props) => {
     },
   ];
 
-  const handleCreateRequest = () => {};
+  const handleCreateRequest = () => {
+    router.navigate("/request");
+  };
 
   return (
     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -79,13 +78,9 @@ const ServiceScreen = (props: Props) => {
 
       {/* CTA Button */}
       <View style={styles.ctaContainer}>
-        <TouchableOpacity
-          style={styles.ctaButton}
-          onPress={handleCreateRequest}
-          activeOpacity={0.8}
-        >
+        <Pressable style={styles.ctaButton} onPress={handleCreateRequest}>
           <Text600 style={styles.ctaButtonText}>Talep Oluştur</Text600>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       {/* Active Requests */}

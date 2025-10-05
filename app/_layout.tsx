@@ -13,6 +13,7 @@ import { Inter_700Bold } from "@expo-google-fonts/inter/700Bold";
 
 import HeaderThemeColor from "@/components/headers/HeaderThemeColor";
 import HeaderWhite from "@/components/headers/HeaderWhite";
+import HeaderWithBackButton from "@/components/headers/HeaderWithBackButton";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,6 +48,13 @@ export default function RootLayout() {
           name="(tabs)"
           options={{
             header: (props) => <HeaderThemeColor {...props} />,
+          }}
+        />
+        <Stack.Screen
+          name="request"
+          options={{
+            presentation: "modal",
+            header: (props) => <HeaderWithBackButton {...props} />,
           }}
         />
       </Stack>
