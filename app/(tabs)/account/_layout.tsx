@@ -7,6 +7,7 @@ const navigations = [
   { name: "personal-information", title: "Personal Information" },
   { name: "security", title: "Security" },
   { name: "app-settings", title: "App Settings" },
+  { name: "notifications", title: "Notifications" },
 ];
 
 const AccountLayout = () => {

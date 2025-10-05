@@ -37,7 +37,7 @@ const AccountScreen = () => {
           iconName: "bell",
           label: "Notifications",
           description: "Manage your notification preferences",
-          onPress: () => console.log("Notifications pressed"),
+          onPress: () => router.push("/account/notifications"),
         },
       ],
     },
