@@ -5,7 +5,7 @@ import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text500 } from "@/primitives";
 
-import blujaWhiteLogo from "@/assets/logo/bluja-white.png";
+import { BlujaLogoWhite } from "@/assets/logo";
 
 const HeaderThemeColor = ({
   navigation,
@@ -18,7 +18,7 @@ const HeaderThemeColor = ({
   return (
     <View style={[styles.container, { paddingTop: 16 + insets.top }]}>
       <View style={styles.innerContainer}>
-        <Image source={blujaWhiteLogo} style={styles.logo} />
+        <Image source={BlujaLogoWhite} style={styles.logo} />
 
         <Pressable onPress={() => {}} style={styles.notificationButton}>
           <Text>I</Text>

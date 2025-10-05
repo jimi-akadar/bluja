@@ -1,17 +1,17 @@
-import blujaLogo from "@/assets/logo/bluja.png";
 import { Image } from "expo-image";
 import React from "react";
 import { Platform, StyleSheet, View } from "react-native";
 
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BlujaLogo } from "@/assets/logo";
 
 const HeaderWhite = (props: NativeStackHeaderProps) => {
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.container, { paddingTop: 16 + insets.top }]}>
-      <Image source={blujaLogo} style={styles.logo} />
+      <Image source={BlujaLogo} style={styles.logo} />
     </View>
   );
 };

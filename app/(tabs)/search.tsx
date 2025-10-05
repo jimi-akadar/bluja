@@ -13,7 +13,6 @@ import {
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { AppleMaps, GoogleMaps } from "expo-maps";
 
 const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,12 +24,7 @@ const SearchScreen = () => {
   } | null>(null);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [locationModalVisible, setLocationModalVisible] = useState(false);
-  const [mapPickerVisible, setMapPickerVisible] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("Karşıyaka, İzmir");
-  const [mapLocation, setMapLocation] = useState({
-    latitude: 38.4237,
-    longitude: 27.1428,
-  });
   const [filters, setFilters] = useState({
     sortBy: "relevance",
     maxDistance: 10,
@@ -480,8 +474,7 @@ const SearchScreen = () => {
               <TouchableOpacity
                 style={styles.mapButton}
                 onPress={() => {
-                  setLocationModalVisible(false);
-                  setMapPickerVisible(true);
+                  alert("Harita özelliği yakında eklenecek!");
                 }}
               >
                 <View style={styles.mapIconContainer}>
@@ -559,101 +552,6 @@ const SearchScreen = () => {
                 <Text style={styles.addLocationText}>Yeni Konum Ekle</Text>
               </TouchableOpacity>
             </ScrollView>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Map Picker Modal */}
-      <Modal
-        visible={mapPickerVisible}
-        animationType="slide"
-        onRequestClose={() => setMapPickerVisible(false)}
-      >
-        <View style={styles.mapContainer}>
-          {/* Map */}
-          {Platform.OS === "ios" ? (
-            <AppleMaps.View
-              style={styles.map}
-              cameraPosition={{
-                coordinates: mapLocation,
-                zoom: 14,
-              }}
-              markers={[
-                {
-                  coordinates: mapLocation,
-                  title: "Seçili Konum",
-                },
-              ]}
-            />
-          ) : (
-            <GoogleMaps.View
-              style={styles.map}
-              cameraPosition={{
-                coordinates: mapLocation,
-                zoom: 14,
-              }}
-              markers={[
-                {
-                  coordinates: mapLocation,
-                  title: "Seçili Konum",
-                },
-              ]}
-            />
-          )}
-
-          {/* Search Bar */}
-          <View style={styles.mapSearchContainer}>
-            <TouchableOpacity
-              style={styles.mapBackButton}
-              onPress={() => setMapPickerVisible(false)}
-            >
-              <Ionicons name="arrow-back" size={24} color="#111827" />
-            </TouchableOpacity>
-            <View style={styles.mapSearchInputContainer}>
-              <Ionicons
-                name="search"
-                size={20}
-                color="#9CA3AF"
-                style={styles.searchIcon}
-              />
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Konum ara..."
-                placeholderTextColor="#9CA3AF"
-              />
-            </View>
-          </View>
-
-          {/* Center Marker Indicator */}
-          <View style={styles.centerMarker}>
-            <Ionicons name="location" size={40} color="#7C3AED" />
-          </View>
-
-          {/* Bottom Card */}
-          <View style={styles.mapBottomCard}>
-            <View style={styles.mapLocationInfo}>
-              <Ionicons name="location-outline" size={20} color="#6B7280" />
-              <View style={styles.mapLocationText}>
-                <Text style={styles.mapLocationTitle}>Seçili Konum</Text>
-                <Text style={styles.mapLocationAddress}>
-                  Konumu haritada hareket ettirerek seçin
-                </Text>
-                <Text style={styles.mapCoordinates}>
-                  {mapLocation.latitude.toFixed(6)},{" "}
-                  {mapLocation.longitude.toFixed(6)}
-                </Text>
-              </View>
-            </View>
-
-            <TouchableOpacity
-              style={styles.mapConfirmButton}
-              onPress={() => {
-                setSelectedLocation("Seçilen Konum");
-                setMapPickerVisible(false);
-              }}
-            >
-              <Text style={styles.mapConfirmButtonText}>Konumu Onayla</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -1097,116 +995,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "600",
     color: "#7C3AED",
-  },
-  mapContainer: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-  },
-  mapSearchContainer: {
-    position: "absolute",
-    top: Platform.OS === "ios" ? 60 : 40,
-    left: 16,
-    right: 16,
-    flexDirection: "row",
-    gap: 12,
-  },
-  mapBackButton: {
-    width: 48,
-    height: 48,
-    backgroundColor: "white",
-    borderRadius: 24,
-    justifyContent: "center",
-    alignItems: "center",
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: { elevation: 4 },
-    }),
-  },
-  mapSearchInputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 24,
-    paddingHorizontal: 16,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: { elevation: 4 },
-    }),
-  },
-  centerMarker: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginLeft: -20,
-    marginTop: -40,
-    pointerEvents: "none",
-  },
-  mapBottomCard: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "white",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    padding: 20,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-      },
-      android: { elevation: 8 },
-    }),
-  },
-  mapLocationInfo: {
-    flexDirection: "row",
-    gap: 12,
-    marginBottom: 16,
-  },
-  mapLocationText: {
-    flex: 1,
-  },
-  mapLocationTitle: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#6B7280",
-    marginBottom: 4,
-  },
-  mapLocationAddress: {
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#111827",
-    marginBottom: 4,
-  },
-  mapCoordinates: {
-    fontSize: 12,
-    color: "#9CA3AF",
-  },
-  mapConfirmButton: {
-    backgroundColor: "#7C3AED",
-    paddingVertical: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  mapConfirmButtonText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "white",
   },
 });
 
