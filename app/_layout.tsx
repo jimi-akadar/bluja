@@ -1,6 +1,6 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
+// import { Stack } from "expo-router";
+// import { StatusBar } from "expo-status-bar";
+// import { SafeAreaView } from "react-native-safe-area-context";
 
 import * as SplashScreen from "expo-splash-screen";
 
@@ -10,9 +10,11 @@ import { Inter_500Medium } from "@expo-google-fonts/inter/500Medium";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter/600SemiBold";
 import { Inter_700Bold } from "@expo-google-fonts/inter/700Bold";
 
-import HeaderThemeColor from "@/components/headers/HeaderThemeColor";
-import HeaderWhite from "@/components/headers/HeaderWhite";
+// import HeaderThemeColor from "@/components/headers/HeaderThemeColor";
+// import HeaderWhite from "@/components/headers/HeaderWhite";
 import { useEffect } from "react";
+import { Text, View } from "react-native";
+import { Slot } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,25 +33,29 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaView
-      style={{ flex: 1 }}
-      edges={{ top: "off", bottom: "additive" }}
-    >
-      <StatusBar style="dark" backgroundColor="orange" translucent={false} />
+    <View style={{ flex: 1 }}>
+      <Text>Sellam</Text>
+      <Slot />
+    </View>
+    // <SafeAreaView
+    //   style={{ flex: 1 }}
+    //   edges={{ top: "off", bottom: "additive" }}
+    // >
+    //   <StatusBar style="dark" backgroundColor="orange" translucent={false} />
 
-      <Stack
-        screenOptions={{
-          header: (props) => <HeaderWhite {...props} />,
-        }}
-      >
-        <Stack.Screen name="home" />
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            header: (props) => <HeaderThemeColor {...props} />,
-          }}
-        />
-      </Stack>
-    </SafeAreaView>
+    //   <Stack
+    //     screenOptions={{
+    //       header: (props) => <HeaderWhite {...props} />,
+    //     }}
+    //   >
+    //     <Stack.Screen name="home" />
+    //     <Stack.Screen
+    //       name="(tabs)"
+    //       options={{
+    //         header: (props) => <HeaderThemeColor {...props} />,
+    //       }}
+    //     />
+    //   </Stack>
+    // </SafeAreaView>
   );
 }

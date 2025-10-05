@@ -46,13 +46,6 @@
         }
       ],
       "expo-font",
-      [
-        "expo-maps",
-        {
-          "requestLocationPermission": true,
-          "locationPermission": "Allow $(PRODUCT_NAME) to use your location"
-        }
-      ],
       "expo-web-browser"
     ],
     "experiments": {
