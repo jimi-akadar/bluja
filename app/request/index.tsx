@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, Pressable, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Screen } from "@/primitives";
+import { router } from "expo-router";
 import RequestCategory from "./components/RequestCategory";
 import RequestLocation from "./components/RequestLocation";
 import RequestDescription from "./components/RequestDescription";
@@ -31,8 +32,11 @@ const RequestScreen = (props: Props) => {
       </ScrollView>
 
       <View style={styles.submitContainer}>
-        <Pressable style={styles.submitButton}>
-          <Text style={styles.submitText}>Submit Request</Text>
+        <Pressable
+          style={styles.submitButton}
+          onPress={() => router.push("/request/summary")}
+        >
+          <Text style={styles.submitText}>Talebi Gözden Geçir</Text>
         </Pressable>
       </View>
     </Screen>

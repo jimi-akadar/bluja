@@ -58,6 +58,14 @@ export default function RootLayout() {
             header: (props) => <HeaderWithBackButton {...props} />,
           }}
         />
+        <Stack.Screen
+          name="request/summary"
+          options={{
+            title: "Talep Özeti",
+            presentation: "modal",
+            header: (props) => <HeaderWithBackButton {...props} />,
+          }}
+        />
       </Stack>
     </SafeAreaView>
   );
