@@ -6,8 +6,10 @@ import {
   View,
   ScrollView,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Text600 } from "@/primitives";
 
@@ -33,12 +35,20 @@ const AddressSelectModal = ({
 }: Props) => {
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Reset states when modal is closed
+  useEffect(() => {
+    if (!visible) {
+      setSearchQuery("");
+    }
+  }, [visible]);
+
   // TODO: Replace with actual data from API/state
   const addresses: Address[] = [
     {
       id: "1",
       name: "Ev",
-      address: "Sık Mahallesi, Sok Sokak No:1, Kat:3 Daire:11 35123 Karşıyaka/İzmir",
+      address:
+        "Sık Mahallesi, Sok Sokak No:1, Kat:3 Daire:11 35123 Karşıyaka/İzmir",
       isDefault: true,
     },
     {
@@ -72,101 +82,111 @@ const AddressSelectModal = ({
       animationType="slide"
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
-        <Pressable style={styles.backdrop} onPress={onClose} />
-        <View style={styles.modalContent}>
-          {/* Header */}
-          <View style={styles.header}>
-            <Text600 style={styles.title}>Adres Seç</Text600>
-            <Pressable onPress={onClose} style={styles.closeButton}>
-              <MaterialIcons name="close" size={24} color="#6B7280" />
+      <KeyboardAvoidingView
+        behavior={Platform.select({ ios: "padding", android: "padding" })}
+        style={styles.keyboardView}
+        keyboardVerticalOffset={Platform.select({ ios: 0, android: -200 })}
+      >
+        <View style={styles.overlay}>
+          <Pressable style={styles.backdrop} onPress={onClose} />
+          <View style={styles.modalContent}>
+            {/* Header */}
+            <View style={styles.header}>
+              <Text600 style={styles.title}>Adres Seç</Text600>
+              <Pressable onPress={onClose} style={styles.closeButton}>
+                <MaterialIcons name="close" size={24} color="#6B7280" />
+              </Pressable>
+            </View>
+
+            {/* Search Bar */}
+            <View style={styles.searchContainer}>
+              <MaterialIcons
+                name="search"
+                size={20}
+                color="#9CA3AF"
+                style={styles.searchIcon}
+              />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Adres ara..."
+                placeholderTextColor="#9CA3AF"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+              />
+            </View>
+
+            {/* Addresses List */}
+            <ScrollView
+              style={styles.addressList}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              {filteredAddresses.map((address) => (
+                <Pressable
+                  key={address.id}
+                  style={[
+                    styles.addressItem,
+                    selectedAddressId === address.id && styles.selectedAddress,
+                  ]}
+                  onPress={() => {
+                    onSelect(address);
+                    onClose();
+                  }}
+                >
+                  <View style={styles.addressIconContainer}>
+                    <MaterialIcons
+                      name="location-on"
+                      size={24}
+                      color={
+                        selectedAddressId === address.id ? "#0D9488" : "#6B7280"
+                      }
+                    />
+                  </View>
+                  <View style={styles.addressInfo}>
+                    <View style={styles.addressNameRow}>
+                      <Text style={styles.addressName}>{address.name}</Text>
+                      {address.isDefault && (
+                        <View style={styles.defaultBadge}>
+                          <Text style={styles.defaultBadgeText}>
+                            Varsayılan
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                    <Text style={styles.addressText} numberOfLines={2}>
+                      {address.address}
+                    </Text>
+                  </View>
+                  {selectedAddressId === address.id && (
+                    <MaterialIcons
+                      name="check-circle"
+                      size={24}
+                      color="#0D9488"
+                    />
+                  )}
+                </Pressable>
+              ))}
+
+              {filteredAddresses.length === 0 && (
+                <View style={styles.emptyState}>
+                  <MaterialIcons
+                    name="location-off"
+                    size={48}
+                    color="#D1D5DB"
+                  />
+                  <Text style={styles.emptyText}>Adres bulunamadı</Text>
+                </View>
+              )}
+            </ScrollView>
+
+            {/* Add New Address Button */}
+            <Pressable style={styles.addButton} onPress={handleAddNewAddress}>
+              <MaterialIcons name="add-location" size={24} color="#0D9488" />
+              <Text style={styles.addButtonText}>Yeni Adres Ekle</Text>
             </Pressable>
           </View>
-
-          {/* Search Bar */}
-          <View style={styles.searchContainer}>
-            <MaterialIcons
-              name="search"
-              size={20}
-              color="#9CA3AF"
-              style={styles.searchIcon}
-            />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Adres ara..."
-              placeholderTextColor="#9CA3AF"
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-            />
-          </View>
-
-          {/* Addresses List */}
-          <ScrollView
-            style={styles.addressList}
-            showsVerticalScrollIndicator={false}
-          >
-            {filteredAddresses.map((address) => (
-              <Pressable
-                key={address.id}
-                style={[
-                  styles.addressItem,
-                  selectedAddressId === address.id && styles.selectedAddress,
-                ]}
-                onPress={() => {
-                  onSelect(address);
-                  onClose();
-                }}
-              >
-                <View style={styles.addressIconContainer}>
-                  <MaterialIcons
-                    name="location-on"
-                    size={24}
-                    color={
-                      selectedAddressId === address.id ? "#0D9488" : "#6B7280"
-                    }
-                  />
-                </View>
-                <View style={styles.addressInfo}>
-                  <View style={styles.addressNameRow}>
-                    <Text style={styles.addressName}>{address.name}</Text>
-                    {address.isDefault && (
-                      <View style={styles.defaultBadge}>
-                        <Text style={styles.defaultBadgeText}>Varsayılan</Text>
-                      </View>
-                    )}
-                  </View>
-                  <Text style={styles.addressText} numberOfLines={2}>
-                    {address.address}
-                  </Text>
-                </View>
-                {selectedAddressId === address.id && (
-                  <MaterialIcons name="check-circle" size={24} color="#0D9488" />
-                )}
-              </Pressable>
-            ))}
-
-            {filteredAddresses.length === 0 && (
-              <View style={styles.emptyState}>
-                <MaterialIcons
-                  name="location-off"
-                  size={48}
-                  color="#D1D5DB"
-                />
-                <Text style={styles.emptyText}>Adres bulunamadı</Text>
-              </View>
-            )}
-          </ScrollView>
-
-          {/* Add New Address Button */}
-          <Pressable
-            style={styles.addButton}
-            onPress={handleAddNewAddress}
-          >
-            <MaterialIcons name="add-location" size={24} color="#0D9488" />
-            <Text style={styles.addButtonText}>Yeni Adres Ekle</Text>
-          </Pressable>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -174,6 +194,9 @@ const AddressSelectModal = ({
 export default AddressSelectModal;
 
 const styles = StyleSheet.create({
+  keyboardView: {
+    flex: 1,
+  },
   overlay: {
     flex: 1,
     justifyContent: "flex-end",
@@ -190,7 +213,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    maxHeight: "80%",
+    maxHeight: "85%",
+    minHeight: "50%",
     paddingBottom: 24,
   },
   header: {
