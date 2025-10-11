@@ -5,8 +5,9 @@ import {
   Pressable,
   StyleSheet,
   Image,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Screen, Text600 } from "@/primitives";
 import Card from "@/primitives/cards/Card";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -15,6 +16,8 @@ import { router } from "expo-router";
 type Props = {};
 
 const RequestSummaryScreen = (props: Props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // TODO: Replace with actual data from form state/context
   const requestData = {
     category: {
@@ -43,9 +46,21 @@ const RequestSummaryScreen = (props: Props) => {
     router.back();
   };
 
-  const handleSubmit = () => {
-    // TODO: Handle request submission
-    console.log("Submitting request...");
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      // TODO: Handle request submission
+      console.log("Submitting request...");
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Navigate to success screen or home after successful submission
+      // router.push("/request/success");
+    } catch (error) {
+      console.error("Error submitting request:", error);
+      // Handle error (show error message)
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -177,11 +192,26 @@ const RequestSummaryScreen = (props: Props) => {
 
       {/* Action Buttons */}
       <View style={styles.actionsContainer}>
-        <Pressable style={styles.backButton} onPress={handleEdit}>
+        <Pressable
+          style={styles.backButton}
+          onPress={handleEdit}
+          disabled={isSubmitting}
+        >
           <Text style={styles.backButtonText}>Geri Dön</Text>
         </Pressable>
-        <Pressable style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitText}>Talebi Gönder</Text>
+        <Pressable
+          style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
+          onPress={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator color="#FFFFFF" size="small" />
+              <Text style={styles.submitText}>Gönderiliyor...</Text>
+            </View>
+          ) : (
+            <Text style={styles.submitText}>Talebi Gönder</Text>
+          )}
         </Pressable>
       </View>
     </Screen>
@@ -337,9 +367,18 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 4,
   },
+  submitButtonDisabled: {
+    backgroundColor: "#6B7280",
+    shadowColor: "#6B7280",
+  },
   submitText: {
     fontSize: 16,
     fontWeight: "600",
     color: "#FFFFFF",
+  },
+  loadingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 });
