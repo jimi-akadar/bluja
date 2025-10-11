@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { Request } from "@/types";
 import RequestCard from "@/components/cards/RequestCard";
+import RequestDetailsModal from "@/components/modals/RequestDetailsModal";
 import { Text400, Text600, Text700, Screen } from "@/primitives";
 import { COLOR_PRIMARY } from "@/constants/colors";
 
@@ -16,6 +17,18 @@ type FilterOption = "all" | "completed" | "cancelled" | "inProgress";
 
 const HistoryScreen = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterOption>("all");
+  const [selectedRequest, setSelectedRequest] = useState<Request | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleRequestPress = (request: Request) => {
+    setSelectedRequest(request);
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    setTimeout(() => setSelectedRequest(null), 300);
+  };
 
   // Mock historical data
   const allRequests: Request[] = [
@@ -31,6 +44,10 @@ const HistoryScreen = () => {
       image:
         "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400",
       hasRibbon: false,
+      description: "3+1 daire genel temizliği. Cam silme dahil.",
+      location: "Kadıköy, İstanbul",
+      budget: "₺500-750",
+      urgency: "Bu hafta içinde",
     },
     {
       id: 2,
@@ -185,7 +202,9 @@ const HistoryScreen = () => {
       <FlatList
         data={filteredRequests}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <RequestCard request={item} />}
+        renderItem={({ item }) => (
+          <RequestCard request={item} onPress={handleRequestPress} />
+        )}
         style={{ flex: 1 }}
         contentContainerStyle={[
           styles.listContent,
@@ -200,6 +219,13 @@ const HistoryScreen = () => {
             </Text400>
           </View>
         }
+      />
+
+      {/* Request Details Modal */}
+      <RequestDetailsModal
+        visible={modalVisible}
+        request={selectedRequest}
+        onClose={handleCloseModal}
       />
     </Screen>
   );

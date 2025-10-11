@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import ServiceATF from "./components/ServiceATF";
 import AddressBar from "@/components/AddressBar";
 import RequestCard from "@/components/cards/RequestCard";
+import RequestDetailsModal from "@/components/modals/RequestDetailsModal";
 import { Request } from "@/types";
 import StatsCard from "@/components/cards/StatsCard";
 import { Text600 } from "@/primitives";
@@ -13,6 +14,18 @@ type Props = {};
 const ServiceScreen = (props: Props) => {
   const router = useRouter();
   const navigation = useNavigation();
+  const [selectedRequest, setSelectedRequest] = useState<Request | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleRequestPress = (request: Request) => {
+    setSelectedRequest(request);
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    setTimeout(() => setSelectedRequest(null), 300);
+  };
 
   const serviceData = {
     title: "Ev Temizliği",
@@ -51,6 +64,10 @@ const ServiceScreen = (props: Props) => {
         "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=400",
       hasRibbon: true,
       ribbonText: "NEW",
+      description: "Need urgent plumbing repair for bathroom sink leak.",
+      location: "Beşiktaş, İstanbul",
+      budget: "₺300-500",
+      urgency: "Bugün",
     },
     {
       id: 2,
@@ -64,6 +81,10 @@ const ServiceScreen = (props: Props) => {
       image:
         "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400",
       hasRibbon: false,
+      description: "Light fixture installation in living room and bedroom.",
+      location: "Şişli, İstanbul",
+      budget: "₺400-600",
+      urgency: "Yarın",
     },
   ];
 
@@ -96,7 +117,11 @@ const ServiceScreen = (props: Props) => {
 
         <View style={styles.requestsList}>
           {activeRequests.map((request) => (
-            <RequestCard key={request.id} request={request} />
+            <RequestCard
+              key={request.id}
+              request={request}
+              onPress={handleRequestPress}
+            />
           ))}
         </View>
       </View>
@@ -117,6 +142,22 @@ const ServiceScreen = (props: Props) => {
           title={serviceData.stats.recentCount}
           description={serviceData.stats.recentDesc}
         />
+      </View>
+
+      {/* Request Details Modal */}
+      <RequestDetailsModal
+        visible={modalVisible}
+        request={selectedRequest}
+        onClose={handleCloseModal}
+      />
+
+      {/* CTA Button */}
+      <View style={styles.ctaContainer}>
+        <Link asChild href="/request">
+          <Pressable style={styles.ctaButton} onPress={handleCreateRequest}>
+            <Text600 style={styles.ctaButtonText}>Talep Oluştur</Text600>
+          </Pressable>
+        </Link>
       </View>
     </ScrollView>
   );

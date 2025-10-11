@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { Request } from "@/types";
 import { Image } from "expo-image";
@@ -6,11 +6,16 @@ import { Text400, Text600, Text700 } from "@/primitives";
 
 type Props = {
   request: Request;
+  onPress?: (request: Request) => void;
 };
 
-const RequestCard = ({ request }: Props) => {
+const RequestCard = ({ request, onPress }: Props) => {
   return (
-    <View key={request.id} style={styles.requestCard}>
+    <Pressable
+      key={request.id}
+      style={styles.requestCard}
+      onPress={() => onPress?.(request)}
+    >
       {/* Status Badge */}
       <View style={styles.statusContainer}>
         <View
@@ -47,7 +52,7 @@ const RequestCard = ({ request }: Props) => {
           )}
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

@@ -10,4 +10,9 @@ export type Request = {
   image: string;
   hasRibbon: boolean;
   ribbonText?: string;
+  description?: string;
+  location?: string;
+  budget?: string;
+  urgency?: string;
+  providerImage?: string;
 };
