@@ -66,6 +66,15 @@ export default function RootLayout() {
             header: (props) => <HeaderWithBackButton {...props} />,
           }}
         />
+
+        <Stack.Screen
+          name="notification"
+          options={{
+            title: "Bildirimler",
+            presentation: "modal",
+            header: (props) => <HeaderWithBackButton {...props} />,
+          }}
+        />
       </Stack>
     </SafeAreaView>
   );

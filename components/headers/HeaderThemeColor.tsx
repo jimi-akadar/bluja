@@ -4,9 +4,10 @@ import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text500 } from "@/primitives";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { BlujaLogoWhite } from "@/assets/logo";
-import { usePathname } from "expo-router";
+import { usePathname, router } from "expo-router";
 
 const paths = [
   // { pathname: "/service", title: "Hizmet" },
@@ -34,8 +35,11 @@ const HeaderThemeColor = ({
       <View style={styles.innerContainer}>
         <Image source={BlujaLogoWhite} style={styles.logo} />
 
-        <Pressable onPress={() => {}} style={styles.notificationButton}>
-          <Text>I</Text>
+        <Pressable
+          onPress={() => router.push("/notification")}
+          style={styles.notificationButton}
+        >
+          <MaterialIcons name="notifications" size={20} color="#8E50C1" />
         </Pressable>
       </View>
 
@@ -71,10 +75,10 @@ const styles = StyleSheet.create({
   logo: { width: 54, height: 24 },
   notificationButton: {
     elevation: 2,
-    width: 18,
-    height: 18,
+    width: 36,
+    height: 36,
     backgroundColor: "#fff",
-    borderRadius: 4,
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
   },
