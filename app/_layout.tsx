@@ -43,7 +43,7 @@ export default function RootLayout() {
           header: (props) => <HeaderWhite {...props} />,
         }}
       >
-        <Stack.Screen name="home" />
+        <Stack.Screen name="home/index" />
         <Stack.Screen
           name="(tabs)"
           options={{
