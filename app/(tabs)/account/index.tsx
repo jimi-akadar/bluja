@@ -14,7 +14,7 @@ const AccountScreen = () => {
   }, []);
 
   const checkAuth = async () => {
-    setIsLoggedIn(false);
+    setIsLoggedIn(true);
   };
 
   if (isLoggedIn === null) {

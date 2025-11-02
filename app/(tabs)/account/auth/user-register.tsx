@@ -18,8 +18,8 @@ const UserRegisterScreen = () => {
 
   const handleRegister = async () => {
     // Mock: Phone number ile kayıt (backend entegrasyonu sonra)
-    await AsyncStorage.setItem("auth_token", "mock_token");
-    await AsyncStorage.setItem("user_phone", phoneNumber);
+    // await AsyncStorage.setItem("auth_token", "mock_token");
+    // await AsyncStorage.setItem("user_phone", phoneNumber);
     router.replace("/account");
   };
 
@@ -64,10 +64,7 @@ const UserRegisterScreen = () => {
 
         <View style={styles.loginSection}>
           <Text400 style={styles.loginText}>Zaten hesabın var mı?</Text400>
-          <Pressable
-            style={styles.loginLink}
-            onPress={() => router.back()}
-          >
+          <Pressable style={styles.loginLink} onPress={() => router.back()}>
             <Text600 style={styles.loginLinkText}>Giriş Yap</Text600>
           </Pressable>
         </View>

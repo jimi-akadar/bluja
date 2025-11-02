@@ -18,9 +18,9 @@ const ProviderLoginScreen = () => {
 
   const handleLogin = async () => {
     // Mock: Provider olarak giriş
-    await AsyncStorage.setItem("auth_token", "mock_token");
-    await AsyncStorage.setItem("user_phone", phoneNumber);
-    await AsyncStorage.setItem("user_type", "provider");
+    // await AsyncStorage.setItem("auth_token", "mock_token");
+    // await AsyncStorage.setItem("user_phone", phoneNumber);
+    // await AsyncStorage.setItem("user_type", "provider");
     router.replace("/account");
   };
 
