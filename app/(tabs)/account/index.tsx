@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { Link, useNavigation, useRouter } from "expo-router";
+import { Link, Redirect, useNavigation, useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AccountScreen = () => {
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    setIsLoggedIn(false);
+  };
+
+  if (isLoggedIn === null) {
+    return null; // Loading
+  }
+
+  if (!isLoggedIn) {
+    return <Redirect href="/account/auth" />;
+  }
 
   const menuSections = [
     {
@@ -77,9 +96,9 @@ const AccountScreen = () => {
     },
   ];
 
-  const handleLogout = () => {
-    console.log("Logout pressed");
-    // Implement logout logic here
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem("auth_token");
+    setIsLoggedIn(false);
   };
 
   return (

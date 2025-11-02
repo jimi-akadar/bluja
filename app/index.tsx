@@ -9,7 +9,7 @@ const Bluja = () => {
 
   useEffect(() => {
     async function checkOnboarding() {
-      await AsyncStorage.clear(); // To test the onboarding, will be a comment on prod
+      // await AsyncStorage.clear(); // To test the onboarding, will be a comment on prod
       const completed = await AsyncStorage.getItem("onboarding_completed");
       setOnboardingCompleted(completed === "true");
     }
