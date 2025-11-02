@@ -16,6 +16,24 @@ const AuthLayout = (props: Props) => {
           title: "Giriş",
         }}
       />
+      <Stack.Screen
+        name="user-register"
+        options={{
+          title: "Kayıt Ol",
+        }}
+      />
+      <Stack.Screen
+        name="provider-login"
+        options={{
+          title: "Sağlayıcı Olarak Giriş Yap",
+        }}
+      />
+      <Stack.Screen
+        name="provider-register"
+        options={{
+          title: "Sağlayıcı Olarak Kayıt Ol",
+        }}
+      />
     </Stack>
   );
 };

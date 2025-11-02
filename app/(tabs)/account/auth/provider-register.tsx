@@ -3,14 +3,14 @@ import React from "react";
 
 type Props = {};
 
-const UserRegisterScreen = (props: Props) => {
+const ProviderRegisterScreen = (props: Props) => {
   return (
     <View>
-      <Text>UserRegisterScreen</Text>
+      <Text>ProviderRegisterScreen</Text>
     </View>
   );
 };
 
-export default UserRegisterScreen;
+export default ProviderRegisterScreen;
 
 const styles = StyleSheet.create({});
