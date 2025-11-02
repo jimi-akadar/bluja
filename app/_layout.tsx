@@ -43,6 +43,13 @@ export default function RootLayout() {
           header: (props) => <HeaderWhite {...props} />,
         }}
       >
+        <Stack.Screen
+          name="onboarding"
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
+        />
         <Stack.Screen name="home/index" />
         <Stack.Screen
           name="(tabs)"
